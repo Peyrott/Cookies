@@ -1,0 +1,253 @@
+import { Categoria, Cookie, Cupom, FaixaFrete, FaqItem, ConfigSite } from '../types';
+
+export const CATEGORIAS_INICIAIS: Categoria[] = [
+  { id: 'cat-tradicionais', nome: 'Cookies Tradicionais', ordem: 1 },
+  { id: 'cat-sazonais', nome: 'Cookies Sazonais', ordem: 2 },
+  { id: 'cat-especiais', nome: 'Cookies Especiais', ordem: 3 },
+];
+
+export const COOKIES_INICIAIS: Cookie[] = [
+  // Tradicionais - R$ 11.00
+  {
+    id: 'cookie-gotas-belga',
+    nome: 'Gotas de Chocolate Belga',
+    descricao: 'Massa crocante por fora e macia por dentro, generosamente repleta de gotas de puro chocolate ao leite belga 33%. O clássico inconfundível.',
+    preco: 11.00,
+    imagem: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-tradicionais',
+    categoria: 'Cookies Tradicionais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: true,
+    tipo: 'tradicional',
+    ingredientes: ['Farinha de trigo especial', 'Manteiga sem sal', 'Açúcar mascavo', 'Gotas de chocolate belga', 'Extrato natural de baunilha'],
+    alergenos: ['Contém glúten', 'Contém lactose', 'Contém ovos'],
+  },
+  {
+    id: 'cookie-double-chocolate',
+    nome: 'Double Chocolate Intenso',
+    descricao: 'Massa 100% cacau Black, densa e chocolatuda com gotas de chocolate meio amargo 54% e pedaços de chocolate branco para contrastar.',
+    preco: 11.00,
+    imagem: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-tradicionais',
+    categoria: 'Cookies Tradicionais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: true,
+    tipo: 'tradicional',
+    ingredientes: ['Cacau em pó 100%', 'Chocolate meio amargo 54%', 'Chocolate branco', 'Manteiga', 'Ovos frescos'],
+    alergenos: ['Contém glúten', 'Contém lactose', 'Contém ovos'],
+  },
+  {
+    id: 'cookie-baunilha-castanha',
+    nome: 'Baunilha com Castanha do Pará',
+    descricao: 'Massa dourada de baunilha com pedaços crocantes e tostados de castanha-do-pará e toque de canela. Perfeito com um café passado.',
+    preco: 11.00,
+    imagem: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-tradicionais',
+    categoria: 'Cookies Tradicionais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: false,
+    tipo: 'tradicional',
+    ingredientes: ['Castanhas selecionadas tostadas', 'Manteiga francesa', 'Açúcar demerara', 'Extrato de baunilha'],
+    alergenos: ['Contém glúten', 'Contém lactose', 'Contém oleaginosas'],
+  },
+  {
+    id: 'cookie-aveia-gotas',
+    nome: 'Aveia Dourada & Gotas Amargas',
+    descricao: 'Flocos de aveia selecionados, açúcar mascavo caramelizado e generosas gotas de chocolate amargo 70%. Textura rústica e apaixonante.',
+    preco: 11.00,
+    imagem: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-tradicionais',
+    categoria: 'Cookies Tradicionais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: false,
+    tipo: 'tradicional',
+    ingredientes: ['Aveia em flocos', 'Chocolate 70% cacau', 'Manteiga', 'Canela'],
+    alergenos: ['Contém glúten', 'Contém lactose', 'Contém ovos'],
+  },
+
+  // Sazonais - R$ 12.00
+  {
+    id: 'cookie-red-velvet',
+    nome: 'Red Velvet com Ninho Cremoso',
+    descricao: 'Massa aveludada cor rubi intenso com sabor suave de cacau, recheada com brigadeiro cremoso de Leite Ninho e gotas de chocolate branco.',
+    preco: 12.00,
+    imagem: 'https://images.unsplash.com/photo-1618923834413-27710e54b15d?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-sazonais',
+    categoria: 'Cookies Sazonais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: true,
+    tipo: 'sazonal',
+    ingredientes: ['Recheio de Leite Ninho', 'Cacau alcalino', 'Corante natural carmim', 'Chocolate branco belga'],
+    alergenos: ['Contém glúten', 'Contém lactose', 'Contém ovos'],
+  },
+  {
+    id: 'cookie-limao-siciliano',
+    nome: 'Limão Siciliano & Choc Branco',
+    descricao: 'Raspas frescas de limão siciliano colhido no dia, toque cítrico refrescante equilibrado com a doçura cremosa do chocolate branco nobre.',
+    preco: 12.00,
+    imagem: 'https://images.unsplash.com/photo-1587248720327-8eb72564be1e?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-sazonais',
+    categoria: 'Cookies Sazonais',
+    ativo: true,
+    disponivel_hoje: false, // exemplo de indisponível hoje para testar regra visual e de kit
+    mais_vendido: false,
+    tipo: 'sazonal',
+    ingredientes: ['Raspas e suco de limão siciliano', 'Chocolate branco', 'Manteiga', 'Farinha de trigo'],
+    alergenos: ['Contém glúten', 'Contém lactose', 'Contém ovos'],
+  },
+  {
+    id: 'cookie-especiarias-maca',
+    nome: 'Especiarias com Maçã & Canela',
+    descricao: 'Massa com mix de canela do Ceilão, noz-moscada, gengibre e pedacinhos de maçã desidratada que derretem na boca.',
+    preco: 12.00,
+    imagem: 'https://images.unsplash.com/photo-1548365328-8c6db3220e4c?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-sazonais',
+    categoria: 'Cookies Sazonais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: false,
+    tipo: 'sazonal',
+    ingredientes: ['Maçã caramelizada', 'Canela do Ceilão', 'Noz-moscada', 'Manteiga'],
+    alergenos: ['Contém glúten', 'Contém lactose'],
+  },
+
+  // Especiais - R$ 12.50
+  {
+    id: 'cookie-pistache-framboesa',
+    nome: 'Pistache Real com Framboesa',
+    descricao: 'Feito com pasta 100% pura de pistache da Sicília, pedaços de pistache crocante e recheio artesanal de geleia de framboesas frescas.',
+    preco: 12.50,
+    imagem: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-especiais',
+    categoria: 'Cookies Especiais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: true,
+    tipo: 'especial',
+    ingredientes: ['Pistache tostado e pasta pura', 'Framboesas frescas', 'Açúcar cristal orgânico', 'Chocolate branco nobre'],
+    alergenos: ['Contém glúten', 'Contém lactose', 'Contém pistache'],
+  },
+  {
+    id: 'cookie-nutella-avela',
+    nome: 'Nutella Pura com Avelãs Crocantes',
+    descricao: 'Coração recheado com uma bola generosa de Nutella derretida e avelãs inteiras torradas salpicadas sobre a massa de cacau.',
+    preco: 12.50,
+    imagem: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-especiais',
+    categoria: 'Cookies Especiais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: true,
+    tipo: 'especial',
+    ingredientes: ['Nutella genuína', 'Avelãs torradas', 'Cacau especial', 'Manteiga'],
+    alergenos: ['Contém avelãs', 'Contém glúten', 'Contém lactose'],
+  },
+  {
+    id: 'cookie-caramelo-salgado',
+    nome: 'Caramelo Salgado & Flor de Sal',
+    descricao: 'Caramelo toffee artesanal puxa-puxa feito no tacho, gotas de chocolate 70% e cristais crocantes de autêntica flor de sal de Guérande.',
+    preco: 12.50,
+    imagem: 'https://images.unsplash.com/photo-1598373182133-52452f7691ef?auto=format&fit=crop&w=800&q=80',
+    categoria_id: 'cat-especiais',
+    categoria: 'Cookies Especiais',
+    ativo: true,
+    disponivel_hoje: true,
+    mais_vendido: false,
+    tipo: 'especial',
+    ingredientes: ['Caramelo artesanal', 'Flor de sal de Guérande', 'Chocolate 70%', 'Fava de baunilha'],
+    alergenos: ['Contém glúten', 'Contém lactose'],
+  },
+];
+
+export const FAIXAS_FRETE_INICIAIS: FaixaFrete[] = [
+  { id: 'frete-1', km_inicial: 0, km_final: 2, valor: 5.00 },
+  { id: 'frete-2', km_inicial: 2, km_final: 4, valor: 8.00 },
+  { id: 'frete-3', km_inicial: 4, km_final: 6, valor: 11.00 },
+  { id: 'frete-4', km_inicial: 6, km_final: 8, valor: 14.00 },
+  { id: 'frete-5', km_inicial: 8, km_final: 10, valor: 17.00 },
+];
+
+export const CUPONS_INICIAIS: Cupom[] = [
+  {
+    id: 'cupom-bemvindo',
+    codigo: 'BEMVINDO10',
+    tipo: 'porcentagem',
+    valor: 10, // 10% de desconto
+    usos_atuais: 3,
+    limite_usos: 100,
+    ativo: true,
+  },
+  {
+    id: 'cupom-gabi5',
+    codigo: 'GABI5',
+    tipo: 'fixo',
+    valor: 5.00, // R$ 5,00 de desconto
+    usos_atuais: 12,
+    limite_usos: 50,
+    ativo: true,
+  },
+  {
+    id: 'cupom-amocookies',
+    codigo: 'AMOCOOKIES',
+    tipo: 'porcentagem',
+    valor: 15,
+    usos_atuais: 28,
+    limite_usos: 200,
+    ativo: true,
+  }
+];
+
+export const CONFIG_INICIAL: ConfigSite = {
+  whatsapp_gabi: '5551999999999', // Substituível no admin
+  instagram_gabi: 'gabicookies_artesanal',
+  ponto_entrega_nome: 'Unisinos – Florindas (Portão B)',
+  ponto_entrega_detalhe: 'Entrega gratuita na entrada do Portão B / Florindas do Campus São Leopoldo Unisinos',
+  origem_lat_lng: { lat: -29.7946, lng: -51.1546 }, // Campus Unisinos São Leopoldo
+  valor_desconto_por_par: 1.50,
+  tamanho_par_kit: 2,
+  taxa_km_adicional: 2.50,
+};
+
+export const FAQ_INICIAL: FaqItem[] = [
+  {
+    id: 'faq-1',
+    pergunta: 'Como funciona a entrega gratuita no campus da Unisinos?',
+    resposta: 'Basta escolher a opção "Unisinos – Florindas, Portão B" no checkout! A entrega nesse ponto é 100% gratuita para alunos, professores e funcionários.',
+    ordem: 1,
+  },
+  {
+    id: 'faq-2',
+    pergunta: 'Como funciona o cálculo de desconto dos Kits?',
+    resposta: 'Nos nossos kits (3, 5 ou 8 cookies), você ganha R$ 1,50 de desconto a cada 2 cookies! Ou seja: Kit 3 = R$ 1,50 de desconto, Kit 5 = R$ 3,00 de desconto, e Kit 8 = R$ 6,00 de desconto.',
+    ordem: 2,
+  },
+  {
+    id: 'faq-3',
+    pergunta: 'Como acumulo pontos e ganho o cookie grátis?',
+    resposta: 'A cada cookie comprado, você ganha 1 ponto (1 ponto = 1% de desconto na sua próxima compra, até 100%!). Além disso, a cada dia que você concluir uma compra, você ganha 1 carimbo no seu Cartão Fidelidade de 10 dias. Ao completar 10 dias, você escolhe qualquer cookie do cardápio totalmente grátis!',
+    ordem: 3,
+  },
+  {
+    id: 'faq-4',
+    pergunta: 'Qual o prazo de entrega dos pedidos?',
+    resposta: 'Os cookies são assados frescos todos os dias! Os pedidos são sempre preparados para o próprio dia. Assim que seu forninho estiver pronto e embalado, a Gabi manda uma mensagem pelo WhatsApp informando o horário exato.',
+    ordem: 4,
+  },
+  {
+    id: 'faq-5',
+    pergunta: 'Posso pedir sabores personalizados para eventos ou presentes?',
+    resposta: 'Sim! Na tela inicial ou no carrinho, clique no botão "Pedido Diferente / Encomenda Especial" que você será direcionado diretamente ao WhatsApp da Gabi para combinarmos quantidades especiais, caixas de presente e eventos corporativos.',
+    ordem: 5,
+  },
+  {
+    id: 'faq-6',
+    pergunta: 'Quais as formas de pagamento disponíveis?',
+    resposta: 'Você pode pagar online com Pix (com QR Code imediato) ou Cartão de Crédito via AbacatePay, ou pagar na entrega/retirada em Dinheiro (com troco), Pix ou Cartão.',
+    ordem: 6,
+  },
+];
