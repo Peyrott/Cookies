@@ -287,6 +287,17 @@ alter table public.faq enable row level security;
 alter table public.config enable row level security;
 alter table public.movimentos_fidelidade enable row level security;
 
+-- Função auxiliar que evita recursão infinita no RLS
+create or replace function public.is_admin()
+returns boolean as $$
+begin
+  return exists (
+    select 1 from public.perfis
+    where id = auth.uid() and role = 'admin'
+  );
+end;
+$$ language plpgsql security definer;
+
 -- Categorias, Cookies, Faixas de Frete, FAQ e Config: leitura pública
 create policy "Leitura pública de categorias" on public.categorias for select using (true);
 create policy "Leitura pública de cookies ativos" on public.cookies for select using (true);
@@ -297,20 +308,23 @@ create policy "Leitura de cupons ativos" on public.cupons for select using (ativ
 
 -- Políticas de Perfil: usuário vê e edita seu próprio perfil; admin vê tudo
 create policy "Usuário vê próprio perfil" on public.perfis 
-  for select using (auth.uid() = id or (select role from public.perfis where id = auth.uid()) = 'admin');
+  for select using (auth.uid() = id or public.is_admin());
 
 create policy "Usuário atualiza próprio perfil" on public.perfis 
-  for update using (auth.uid() = id);
+  for update using (auth.uid() = id or public.is_admin());
+
+create policy "Admin gerencia perfis" on public.perfis
+  for all using (public.is_admin());
 
 -- Políticas de Pedidos: cliente vê os seus; admin gerencia tudo
 create policy "Cliente vê próprios pedidos" on public.pedidos 
-  for select using (cliente_id = auth.uid() or (select role from public.perfis where id = auth.uid()) = 'admin');
+  for select using (cliente_id = auth.uid() or public.is_admin());
 
 create policy "Cliente cria pedidos" on public.pedidos 
   for insert with check (true);
 
 create policy "Admin atualiza pedidos" on public.pedidos 
-  for update using ((select role from public.perfis where id = auth.uid()) = 'admin');
+  for update using (public.is_admin());
 
 create policy "Ver itens do pedido" on public.pedido_itens 
   for select using (true);
@@ -319,26 +333,26 @@ create policy "Criar itens do pedido" on public.pedido_itens
   for insert with check (true);
 
 create policy "Ver movimentos de fidelidade" on public.movimentos_fidelidade 
-  for select using (perfil_id = auth.uid() or (select role from public.perfis where id = auth.uid()) = 'admin');
+  for select using (perfil_id = auth.uid() or public.is_admin());
 
 -- Permissões gerais de Admin para edição de cardápio, cupons, frete e configurações
 create policy "Admin edita cookies" on public.cookies 
-  for all using ((select role from public.perfis where id = auth.uid()) = 'admin');
+  for all using (public.is_admin());
 
 create policy "Admin edita categorias" on public.categorias 
-  for all using ((select role from public.perfis where id = auth.uid()) = 'admin');
+  for all using (public.is_admin());
 
 create policy "Admin edita cupons" on public.cupons 
-  for all using ((select role from public.perfis where id = auth.uid()) = 'admin');
+  for all using (public.is_admin());
 
 create policy "Admin edita faixas_frete" on public.faixas_frete 
-  for all using ((select role from public.perfis where id = auth.uid()) = 'admin');
+  for all using (public.is_admin());
 
 create policy "Admin edita faq" on public.faq 
-  for all using ((select role from public.perfis where id = auth.uid()) = 'admin');
+  for all using (public.is_admin());
 
 create policy "Admin edita config" on public.config 
-  for all using ((select role from public.perfis where id = auth.uid()) = 'admin');
+  for all using (public.is_admin());
 
 -- 14. SEED INICIAL DE DADOS
 insert into public.categorias (id, nome, ordem) values
