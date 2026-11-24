@@ -235,14 +235,19 @@ export const StoreService = {
 
   // PEDIDOS
   async getPedidos(): Promise<Pedido[]> {
+    const localPedidos = getLocal<Pedido[]>(STORAGE_KEYS.PEDIDOS, []);
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase
         .from('pedidos')
         .select('*, pedido_itens(*)')
         .order('created_at', { ascending: false });
-      if (!error && data) return data as Pedido[];
+      if (!error && data) {
+        const supabaseIds = new Set(data.map((p: Pedido) => p.id));
+        const apenasLocais = localPedidos.filter((p) => !supabaseIds.has(p.id));
+        return [...apenasLocais, ...(data as Pedido[])];
+      }
     }
-    return getLocal<Pedido[]>(STORAGE_KEYS.PEDIDOS, []);
+    return localPedidos;
   },
 
   async getPedidoById(id: string): Promise<Pedido | null> {
