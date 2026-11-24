@@ -23,6 +23,7 @@ import { supabase, isSupabaseConfigured } from './supabase';
 
 const STORAGE_KEYS = {
   COOKIES: 'gabi_cookies_items',
+  CATALOG_VERSION: 'gabi_catalog_version',
   CATEGORIAS: 'gabi_categorias',
   CUPONS: 'gabi_cupons',
   FAIXAS_FRETE: 'gabi_faixas_frete',
@@ -33,6 +34,8 @@ const STORAGE_KEYS = {
   MOVIMENTOS: 'gabi_movimentos_fidelidade',
   CURRENT_USER: 'gabi_current_user',
 };
+
+const CURRENT_CATALOG_VERSION = 'real-fotos-v1';
 
 // Inicialização segura do localStorage
 function getLocal<T>(key: string, defaultValue: T): T {
@@ -55,10 +58,17 @@ function setLocal<T>(key: string, value: T): void {
   }
 }
 
-// Inicializa dados no localStorage se vazios
+// Inicializa dados no localStorage se vazios ou se ainda contiverem fotos antigas
 export function inicializarArmazenamento(): void {
-  if (!localStorage.getItem(STORAGE_KEYS.COOKIES)) {
+  const savedCookiesRaw = localStorage.getItem(STORAGE_KEYS.COOKIES);
+  const savedCatalogVersion = localStorage.getItem(STORAGE_KEYS.CATALOG_VERSION);
+  if (
+    !savedCookiesRaw ||
+    savedCatalogVersion !== CURRENT_CATALOG_VERSION ||
+    savedCookiesRaw.includes('images.unsplash.com')
+  ) {
     setLocal(STORAGE_KEYS.COOKIES, COOKIES_INICIAIS);
+    localStorage.setItem(STORAGE_KEYS.CATALOG_VERSION, CURRENT_CATALOG_VERSION);
   }
   if (!localStorage.getItem(STORAGE_KEYS.CATEGORIAS)) {
     setLocal(STORAGE_KEYS.CATEGORIAS, CATEGORIAS_INICIAIS);
@@ -88,7 +98,16 @@ export const StoreService = {
   async getCookies(): Promise<Cookie[]> {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('cookies').select('*').order('nome');
-      if (!error && data) return data;
+      if (!error && data && data.length > 0) {
+        const hasLegacyUnsplash = data.some((c: Cookie) => c.imagem?.includes('images.unsplash.com'));
+        if (!hasLegacyUnsplash) {
+          const categoriasMap = new Map(CATEGORIAS_INICIAIS.map((cat) => [cat.id, cat.nome]));
+          return data.map((c: Cookie) => ({
+            ...c,
+            categoria: c.categoria || categoriasMap.get(c.categoria_id) || '',
+          }));
+        }
+      }
     }
     return getLocal<Cookie[]>(STORAGE_KEYS.COOKIES, COOKIES_INICIAIS);
   },

@@ -361,18 +361,35 @@ insert into public.categorias (id, nome, ordem) values
   ('cat-especiais', 'Cookies Especiais', 3)
 on conflict (id) do nothing;
 
+-- Remove cookies antigos de demonstração (Unsplash) caso existam e popula apenas os exemplos reais
+delete from public.cookies where imagem like '%images.unsplash.com%';
+
 insert into public.cookies (id, nome, descricao, preco, imagem, categoria_id, ativo, disponivel_hoje, mais_vendido, tipo) values
-  ('cookie-gotas-belga', 'Gotas de Chocolate Belga', 'Massa amanteigada clássica crocante por fora e macia por dentro, repleta de gotas de puro chocolate ao leite belga 33%.', 11.00, 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80', 'cat-tradicionais', true, true, true, 'tradicional'),
-  ('cookie-double-chocolate', 'Double Chocolate Intenso', 'Massa 100% cacau Black, densa e chocolatuda com gotas de chocolate meio amargo 54% e pedaços de chocolate branco.', 11.00, 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=800&q=80', 'cat-tradicionais', true, true, true, 'tradicional'),
-  ('cookie-baunilha-castanha', 'Baunilha com Castanha do Pará', 'Massa dourada de baunilha com pedaços crocantes tostados de castanha-do-pará e canela.', 11.00, 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80', 'cat-tradicionais', true, true, false, 'tradicional'),
-  ('cookie-aveia-gotas', 'Aveia Dourada & Gotas Amargas', 'Flocos de aveia selecionados, açúcar mascavo caramelizado e generosas gotas de chocolate amargo 70%.', 11.00, 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80', 'cat-tradicionais', true, true, false, 'tradicional'),
-  ('cookie-red-velvet', 'Red Velvet com Ninho Cremoso', 'Massa aveludada cor rubi intenso com recheio cremoso de brigadeiro de Ninho e gotas de chocolate branco.', 12.00, 'https://images.unsplash.com/photo-1618923834413-27710e54b15d?auto=format&fit=crop&w=800&q=80', 'cat-sazonais', true, true, true, 'sazonal'),
-  ('cookie-limao-siciliano', 'Limão Siciliano & Choc Branco', 'Raspas frescas de limão siciliano, toque cítrico refrescante com a doçura do chocolate branco nobre.', 12.00, 'https://images.unsplash.com/photo-1587248720327-8eb72564be1e?auto=format&fit=crop&w=800&q=80', 'cat-sazonais', true, false, false, 'sazonal'),
-  ('cookie-especiarias-maca', 'Especiarias com Maçã & Canela', 'Mix de canela, noz-moscada, gengibre e pedacinhos de maçã caramelizada.', 12.00, 'https://images.unsplash.com/photo-1548365328-8c6db3220e4c?auto=format&fit=crop&w=800&q=80', 'cat-sazonais', true, true, false, 'sazonal'),
-  ('cookie-pistache-framboesa', 'Pistache Real com Framboesa', 'Pasta 100% pura de pistache da Sicília, pedaços de pistache crocante e recheio de geleia artesanal de framboesas.', 12.50, 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=800&q=80', 'cat-especiais', true, true, true, 'especial'),
-  ('cookie-nutella-avela', 'Nutella Pura com Avelãs Crocantes', 'Coração recheado com uma bola generosa de Nutella derretida e avelãs inteiras torradas.', 12.50, 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80', 'cat-especiais', true, true, true, 'especial'),
-  ('cookie-caramelo-salgado', 'Caramelo Salgado & Flor de Sal', 'Caramelo toffee artesanal puxa-puxa feito no tacho, gotas 70% e cristais de flor de sal de Guérande.', 12.50, 'https://images.unsplash.com/photo-1598373182133-52452f7691ef?auto=format&fit=crop&w=800&q=80', 'cat-especiais', true, true, false, 'especial')
-on conflict (id) do nothing;
+  ('cookie-gotas-chocolate', 'Clássico Gotas de Chocolate', 'Massa amanteigada dourada, crocante por fora e macia por dentro, generosamente repleta de gotas de chocolate ao leite e meio amargo.', 11.00, '/fotos/cookie-gotas-chocolate.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-double-chocolate', 'Double Chocolate Cacau', 'Massa 100% cacau Black, densa e chocolatuda, repleta de gotas de chocolate meio amargo que derretem a cada mordida.', 11.00, '/fotos/cookie-double-chocolate.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-dois-chocolates', 'Dois Chocolates (Branco & Preto)', 'Massa dourada de baunilha recheada com gotas de chocolate branco e meio amargo, finalizada com pedaços dos dois chocolates no topo.', 11.00, '/fotos/cookie-dois-chocolates.jpg', 'cat-tradicionais', true, true, true, 'tradicional'),
+  ('cookie-chocolate-branco', 'Baunilha & Chocolate Branco', 'Massa macia de baunilha assada na hora com gotas generosas de chocolate branco cremoso.', 11.00, '/fotos/cookie-chocolate-branco-forno.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-baunilha-nozes', 'Cookie de Nozes Crocantes', 'Massa amanteigada com pedaços de nozes tostadas por dentro e finalizada com uma noz inteira crocante no centro.', 11.00, '/fotos/cookie-baunilha-nozes.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-red-velvet', 'Red Velvet com Gotas Brancas', 'Massa aveludada cor rubi intenso com toque suave de cacau e gotas generosas de chocolate branco nobre.', 12.00, '/fotos/cookie-red-velvet.jpg', 'cat-sazonais', true, true, true, 'sazonal'),
+  ('cookie-prestigio-coco', 'Prestígio (Cacau com Coco)', 'Massa macia de cacau intenso com cobertura cremosa de chocolate e coco ralado em flocos.', 12.00, '/fotos/cookie-prestigio-coco.jpg', 'cat-sazonais', true, true, false, 'sazonal'),
+  ('cookie-mms', 'Cookie Confete M&M''s', 'Massa clássica com gotas de chocolate e muitos confeitos coloridos de M&M''s crocantes.', 12.00, '/fotos/cookie-mms.jpg', 'cat-sazonais', true, true, false, 'sazonal'),
+  ('cookie-cacau-amendoim', 'Cacau com Amendoim Crocante', 'Massa intensa de chocolate escuro finalizada com ganache cremosa e amendoim torrado picado.', 12.00, '/fotos/cookie-cacau-amendoim.jpg', 'cat-sazonais', true, true, false, 'sazonal'),
+  ('cookie-ferrero-avela', 'Ferrero com Nutella & Avelãs', 'Cookie de cacau recheado com muito creme de avelã Nutella, wafer crocante e avelãs inteiras torradas.', 12.50, '/fotos/cookie-ferrero-avela.jpg', 'cat-especiais', true, true, true, 'especial'),
+  ('cookie-kitkat', 'Cookie com KitKat', 'Massa amanteigada com gotas e pedaços de chocolate ao leite, coroada com barrinhas crocantes de KitKat.', 12.50, '/fotos/cookie-kitkat.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-cacau-ninho', 'Black com Espiral de Ninho', 'Base intensa de cacau Black coberta com espiral generosa e cremosa de brigadeiro branco de Leite Ninho.', 12.50, '/fotos/cookie-cacau-ninho.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-cacau-caramelo', 'Black com Doce de Leite', 'Massa escura de cacau intenso finalizada com espiral cremosa de doce de leite artesanal.', 12.50, '/fotos/cookie-cacau-caramelo.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-brookie', 'Brookie Artesanal (Brownie + Cookie)', 'A união irresistível da base densa e cremosa de brownie de chocolate com camada superior de cookie com gotas.', 12.50, '/fotos/brookie-corte.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-brownies', 'Brownie Artesanal (Tradicional / Red Velvet)', 'Brownies artesanais embalados individualmente com casquinha craquelada, nos sabores tradicional, brookie e red velvet.', 12.50, '/fotos/brownies-embalados.jpg', 'cat-especiais', true, true, false, 'especial')
+on conflict (id) do update set
+  nome = excluded.nome,
+  descricao = excluded.descricao,
+  preco = excluded.preco,
+  imagem = excluded.imagem,
+  categoria_id = excluded.categoria_id,
+  ativo = excluded.ativo,
+  disponivel_hoje = excluded.disponivel_hoje,
+  mais_vendido = excluded.mais_vendido,
+  tipo = excluded.tipo;
 
 insert into public.faixas_frete (id, km_inicial, km_final, valor) values
   ('frete-1', 0, 2, 5.00),

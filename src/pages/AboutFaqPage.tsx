@@ -27,20 +27,36 @@ export const AboutFaqPage: React.FC<AboutFaqProps> = ({ onOpenWhatsappModal }) =
 
   const fotosGaleria = [
     {
-      url: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80',
-      legenda: 'Chocolate Belga saindo do forno',
+      url: '/fotos/cookie-chocolate-branco-forno.jpg',
+      legenda: 'Cookies douradinhos saindo do forno',
     },
     {
-      url: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80',
-      legenda: 'Double Chocolate Intenso & Macio',
+      url: '/fotos/cookie-dois-chocolates.jpg',
+      legenda: 'Dois Chocolates com pedaços nobres no topo',
     },
     {
-      url: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&q=80',
-      legenda: 'Pistache Siciliano com Framboesa',
+      url: '/fotos/cookie-ferrero-avela.jpg',
+      legenda: 'Ferrero com Nutella cremosa e avelã inteira',
     },
     {
-      url: 'https://images.unsplash.com/photo-1618923834413-27710e54b15d?auto=format&fit=crop&w=600&q=80',
-      legenda: 'Red Velvet aveludado com Ninho',
+      url: '/fotos/cookie-cacau-ninho.jpg',
+      legenda: 'Cacau Black com espiral de Ninho cremoso',
+    },
+    {
+      url: '/fotos/grade-cookies-artesanais.jpg',
+      legenda: 'Nossa variedade real de sabores na grade',
+    },
+    {
+      url: '/fotos/brookie-corte.jpg',
+      legenda: 'Brookie: base de brownie com cobertura de cookie',
+    },
+    {
+      url: '/fotos/brownies-embalados.jpg',
+      legenda: 'Brownies tradicionais, brookie e red velvet',
+    },
+    {
+      url: '/fotos/kits-brownie-bites.jpg',
+      legenda: 'Brownies e bites embalados para o seu dia',
     },
   ];
 
@@ -90,8 +106,8 @@ export const AboutFaqPage: React.FC<AboutFaqProps> = ({ onOpenWhatsappModal }) =
         <div className="lg:col-span-5 relative">
           <div className="aspect-4/5 rounded-3xl overflow-hidden shadow-xl border-4 border-white">
             <img
-              src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80"
-              alt="Cookies artesanais saindo do forno"
+              src="/fotos/fornada-vitrine.jpg"
+              alt="Cookies e brookies artesanais saindo do forno na Gabi Cookies"
               className="w-full h-full object-cover"
             />
           </div>
