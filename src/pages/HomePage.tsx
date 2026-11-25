@@ -112,7 +112,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSelectCookie, onOpenWhatsa
               'from-rose-50 to-pink-100 border-rose-200 text-rose-950',
               'from-purple-50 to-indigo-100 border-purple-200 text-purple-950',
             ];
-            const badges = ['R$ 11,00 cada', 'R$ 12,00 cada', 'R$ 12,50 cada'];
+            const badges = ['A partir de R$ 11,00', 'Edição de Natal', 'A partir de R$ 12,50'];
             const cor = cores[idx % cores.length];
 
             return (

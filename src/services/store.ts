@@ -35,7 +35,7 @@ const STORAGE_KEYS = {
   CURRENT_USER: 'gabi_current_user',
 };
 
-const CURRENT_CATALOG_VERSION = 'real-fotos-v1';
+const CURRENT_CATALOG_VERSION = 'gabi-cardapio-v2';
 
 // Inicialização segura do localStorage
 function getLocal<T>(key: string, defaultValue: T): T {

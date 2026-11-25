@@ -361,25 +361,31 @@ insert into public.categorias (id, nome, ordem) values
   ('cat-especiais', 'Cookies Especiais', 3)
 on conflict (id) do nothing;
 
--- Remove cookies antigos de demonstração (Unsplash) caso existam e popula apenas os exemplos reais
+-- Remove cookies antigos de demonstração e popula o cardápio oficial da Gabi
 delete from public.cookies where imagem like '%images.unsplash.com%';
 
 insert into public.cookies (id, nome, descricao, preco, imagem, categoria_id, ativo, disponivel_hoje, mais_vendido, tipo) values
-  ('cookie-gotas-chocolate', 'Clássico Gotas de Chocolate', 'Massa amanteigada dourada, crocante por fora e macia por dentro, generosamente repleta de gotas de chocolate ao leite e meio amargo.', 11.00, '/fotos/cookie-gotas-chocolate.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
-  ('cookie-double-chocolate', 'Double Chocolate Cacau', 'Massa 100% cacau Black, densa e chocolatuda, repleta de gotas de chocolate meio amargo que derretem a cada mordida.', 11.00, '/fotos/cookie-double-chocolate.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
-  ('cookie-dois-chocolates', 'Dois Chocolates (Branco & Preto)', 'Massa dourada de baunilha recheada com gotas de chocolate branco e meio amargo, finalizada com pedaços dos dois chocolates no topo.', 11.00, '/fotos/cookie-dois-chocolates.jpg', 'cat-tradicionais', true, true, true, 'tradicional'),
-  ('cookie-chocolate-branco', 'Baunilha & Chocolate Branco', 'Massa macia de baunilha assada na hora com gotas generosas de chocolate branco cremoso.', 11.00, '/fotos/cookie-chocolate-branco-forno.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
-  ('cookie-baunilha-nozes', 'Cookie de Nozes Crocantes', 'Massa amanteigada com pedaços de nozes tostadas por dentro e finalizada com uma noz inteira crocante no centro.', 11.00, '/fotos/cookie-baunilha-nozes.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
-  ('cookie-red-velvet', 'Red Velvet com Gotas Brancas', 'Massa aveludada cor rubi intenso com toque suave de cacau e gotas generosas de chocolate branco nobre.', 12.00, '/fotos/cookie-red-velvet.jpg', 'cat-sazonais', true, true, true, 'sazonal'),
-  ('cookie-prestigio-coco', 'Prestígio (Cacau com Coco)', 'Massa macia de cacau intenso com cobertura cremosa de chocolate e coco ralado em flocos.', 12.00, '/fotos/cookie-prestigio-coco.jpg', 'cat-sazonais', true, true, false, 'sazonal'),
-  ('cookie-mms', 'Cookie Confete M&M''s', 'Massa clássica com gotas de chocolate e muitos confeitos coloridos de M&M''s crocantes.', 12.00, '/fotos/cookie-mms.jpg', 'cat-sazonais', true, true, false, 'sazonal'),
-  ('cookie-cacau-amendoim', 'Cacau com Amendoim Crocante', 'Massa intensa de chocolate escuro finalizada com ganache cremosa e amendoim torrado picado.', 12.00, '/fotos/cookie-cacau-amendoim.jpg', 'cat-sazonais', true, true, false, 'sazonal'),
-  ('cookie-ferrero-avela', 'Ferrero com Nutella & Avelãs', 'Cookie de cacau recheado com muito creme de avelã Nutella, wafer crocante e avelãs inteiras torradas.', 12.50, '/fotos/cookie-ferrero-avela.jpg', 'cat-especiais', true, true, true, 'especial'),
-  ('cookie-kitkat', 'Cookie com KitKat', 'Massa amanteigada com gotas e pedaços de chocolate ao leite, coroada com barrinhas crocantes de KitKat.', 12.50, '/fotos/cookie-kitkat.jpg', 'cat-especiais', true, true, false, 'especial'),
-  ('cookie-cacau-ninho', 'Black com Espiral de Ninho', 'Base intensa de cacau Black coberta com espiral generosa e cremosa de brigadeiro branco de Leite Ninho.', 12.50, '/fotos/cookie-cacau-ninho.jpg', 'cat-especiais', true, true, false, 'especial'),
-  ('cookie-cacau-caramelo', 'Black com Doce de Leite', 'Massa escura de cacau intenso finalizada com espiral cremosa de doce de leite artesanal.', 12.50, '/fotos/cookie-cacau-caramelo.jpg', 'cat-especiais', true, true, false, 'especial'),
-  ('cookie-brookie', 'Brookie Artesanal (Brownie + Cookie)', 'A união irresistível da base densa e cremosa de brownie de chocolate com camada superior de cookie com gotas.', 12.50, '/fotos/brookie-corte.jpg', 'cat-especiais', true, true, false, 'especial'),
-  ('cookie-brownies', 'Brownie Artesanal (Tradicional / Red Velvet)', 'Brownies artesanais embalados individualmente com casquinha craquelada, nos sabores tradicional, brookie e red velvet.', 12.50, '/fotos/brownies-embalados.jpg', 'cat-especiais', true, true, false, 'especial')
+  ('cookie-tradicional-brigadeiro', 'Tradicional Brigadeiro', 'Massa de baunilha com gotas de chocolate e recheio cremoso de brigadeiro tradicional.', 11.00, '/fotos/cookie-gotas-chocolate.jpg', 'cat-tradicionais', true, true, true, 'tradicional'),
+  ('cookie-red-velvet', 'Red Velvet', 'Massa de chocolate e sabor cereja com recheio cremoso de brigadeiro de Ninho.', 11.00, '/fotos/cookie-red-velvet.jpg', 'cat-tradicionais', true, true, true, 'tradicional'),
+  ('cookie-black-caramelo', 'Black Caramelo', 'Massa de chocolate Black 100% cacau com recheio de brigadeiro de caramelo salgado.', 11.00, '/fotos/cookie-cacau-caramelo.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-nozes-caramelo', 'Nozes e Caramelo', 'Massa de baunilha e nozes com recheio de brigadeiro de caramelo salgado.', 11.00, '/fotos/cookie-baunilha-nozes.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-cafe-cappuccino', 'Café e Cappuccino', 'Massa de chocolate e café com recheio de brigadeiro de cappuccino.', 12.00, '/fotos/cookie-double-chocolate.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-prestigio', 'Prestígio', 'Massa de chocolate 50% cacau com recheio cremoso de beijinho.', 11.00, '/fotos/cookie-prestigio-coco.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-limao-siciliano', 'Limão Siciliano', 'Massa refrescante de limão siciliano com recheio cremoso de chocolate branco.', 11.00, '/fotos/cookie-chocolate-branco-forno.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-tropical', 'Tropical', 'Massa de coco com recheio de brigadeiro de maracujá.', 12.00, '/fotos/cookie-chocolate-branco-forno.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-confetis', 'Confetis', 'Massa de baunilha e confeitos coloridos com recheio de brigadeiro de Nesquik.', 11.00, '/fotos/cookie-mms.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-churros', 'Churros', 'Massa de canela com recheio cremoso de doce de leite.', 11.00, '/fotos/cookie-gotas-chocolate.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-mirtilo', 'Mirtilo', 'Massa de mirtilo com recheio cremoso de chocolate branco.', 12.00, '/fotos/cookie-chocolate-branco-forno.jpg', 'cat-tradicionais', true, true, false, 'tradicional'),
+  ('cookie-mms-meio-amargo', 'MM''s e Meio Amargo', 'Massa de baunilha e MM''s com recheio de chocolate meio amargo.', 12.50, '/fotos/cookie-mms.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-duo', 'Duo', 'Massa de baunilha e gotas de chocolate branco e preto com recheio de chocolate branco e preto.', 12.50, '/fotos/cookie-dois-chocolates.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-kitkat', 'Kitkat', 'Massa de baunilha e Kitkats ao leite e meio amargo com recheio de KitKat da Nestlé.', 12.50, '/fotos/cookie-kitkat.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-stikadinho', 'Stikadinho', 'Massa de chocolate Black 100% cacau com recheio de Stikadinhos.', 12.50, '/fotos/cookie-double-chocolate.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-galak', 'Galak', 'Massa de baunilha com gotas brancas e recheio cremoso de Galak.', 12.50, '/fotos/cookie-chocolate-branco-forno.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-kinder-bueno', 'Kinder Bueno', 'Massa de baunilha com gotas brancas e recheio de Kinder Bueno Branco.', 12.50, '/fotos/fornada-vitrine.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-ferrero-rocher', 'Ferrero Rocher', 'Massa de chocolate 50% cacau com recheio de Nutella e Ferrero Rocher.', 15.00, '/fotos/cookie-ferrero-avela.jpg', 'cat-especiais', true, true, true, 'especial'),
+  ('cookie-sanduiche-brownie', 'Sanduíche de Brownie', 'Massa de brownie com recheio cremoso de brigadeiro de Ninho.', 15.00, '/fotos/brownies-embalados.jpg', 'cat-especiais', true, true, false, 'especial'),
+  ('cookie-smores', 'S''Mores', 'Edição de Natal: massa de baunilha com gotas de chocolate e recheio de chocolate meio amargo com marshmallow.', 12.50, '/fotos/cookie-cacau-ninho.jpg', 'cat-sazonais', true, true, false, 'sazonal'),
+  ('cookie-ginger-biscuits', 'Ginger Biscuits (6un)', 'Edição de Natal: biscoitos tradicionais de gengibre decorados (pacote com 6 unidades).', 10.00, '/fotos/kits-brownie-bites.jpg', 'cat-sazonais', true, true, false, 'sazonal')
 on conflict (id) do update set
   nome = excluded.nome,
   descricao = excluded.descricao,
